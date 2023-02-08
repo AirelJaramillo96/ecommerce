@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-img',
@@ -7,9 +7,17 @@ import {Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit
 })
 export class ImgComponent implements OnInit {
 
-  @Input() img: string = '';
+  img: string = '';
+  @Input('img') set changeImg(newImg: string) {
+    this.img = newImg;
+    // this.img = this.imgDefault;
+    console.log('set changeImg =>>>', 'imgValue =>', this.img);
+  };
   @Output() loaded = new EventEmitter<string>();
   imgDefault: string = './assets/images/descarga.png';
+  counter = 0;
+  counterFn: number | undefined;
+
 
   constructor() {
     //before render
@@ -17,16 +25,21 @@ export class ImgComponent implements OnInit {
     console.log('constructor', 'imgValue =>', this.img);
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     //before render
     // inputs changed in vue.js is like watch
     console.log('ngOnChanges', 'imgValue =>', this.img)
+    console.log('changes', changes);
   }
 
   ngOnInit(): void {
     //before render
     //Can run async code here (like http request) In vue.js is like created() this run once time
     console.log('ngOnInit', 'imgValue =>', this.img);
+    this.counterFn = window.setInterval(() => {
+      this.counter++;
+      console.log('counter');
+    }, 1000);
   }
 
   ngAfterViewInit() {
@@ -39,6 +52,7 @@ export class ImgComponent implements OnInit {
     //delete component
     //In vue.js is like beforeDestroy
     console.log('ngOnDestroy', 'imgValue =>', this.img);
+    window.clearInterval(this.counterFn);
   }
 
   imgError() {
