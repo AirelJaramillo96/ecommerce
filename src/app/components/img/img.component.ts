@@ -15,7 +15,7 @@ export class ImgComponent implements OnInit {
   };
   @Output() loaded = new EventEmitter<string>();
   imgDefault: string = './assets/images/descarga.png';
-  counter = 0;
+  //counter = 0;
   counterFn: number | undefined;
 
 
@@ -36,10 +36,11 @@ export class ImgComponent implements OnInit {
     //before render
     //Can run async code here (like http request) In vue.js is like created() this run once time
     console.log('ngOnInit', 'imgValue =>', this.img);
-    this.counterFn = window.setInterval(() => {
+     /* this.counterFn = window.setInterval(() => {
       this.counter++;
       console.log('counter');
     }, 1000);
+      */
   }
 
   ngAfterViewInit() {
@@ -52,7 +53,7 @@ export class ImgComponent implements OnInit {
     //delete component
     //In vue.js is like beforeDestroy
     console.log('ngOnDestroy', 'imgValue =>', this.img);
-    window.clearInterval(this.counterFn);
+   // window.clearInterval(this.counterFn);
   }
 
   imgError() {
