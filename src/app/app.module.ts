@@ -11,6 +11,7 @@ import { ListProductsComponent } from './components/list-products/list-products.
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ListProductsComponent,
     NavBarComponent,
     ReversePipe,
-    TimeAgoPipe
+    TimeAgoPipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
