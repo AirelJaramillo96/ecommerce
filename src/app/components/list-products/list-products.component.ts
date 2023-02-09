@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Product} from "../../models/product.model";
+import {StoreService} from "../../services/store.service";
 
 @Component({
   selector: 'app-list-products',
@@ -7,8 +8,8 @@ import {Product} from "../../models/product.model";
   styleUrls: ['./list-products.component.scss']
 })
 export class ListProductsComponent {
-  myShoppingCart: Product[] = [];
 
+  myShoppingCart: Product[] = [];
   products: Product[] = [
     {
       id: '1',
@@ -37,17 +38,19 @@ export class ListProductsComponent {
   ];
   total = 0;
 
+  constructor(private storeService: StoreService) {
+    this.myShoppingCart = this.storeService.getMyShoppingCart();
+  }
+
   onAddToShoppingCart(product: Product) {
-    this.myShoppingCart.push(product);
-    this.total = this.total + product.price;
+    this.storeService.addProduct(product);
+    this.total = this.storeService.getTotal();
   }
 
   formatTotal(total: number) {
-    //Format number to DLS currency
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2
-       }).format(total);
-    }
+    return this.storeService.getFormatTotal(total);
+  }
+
+
+
 }
