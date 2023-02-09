@@ -7,6 +7,8 @@ import {Product} from "../../models/product.model";
   styleUrls: ['./list-products.component.scss']
 })
 export class ListProductsComponent {
+  myShoppingCart: Product[] = [];
+
   products: Product[] = [
     {
       id: '1',
@@ -33,5 +35,19 @@ export class ListProductsComponent {
       img: './assets/images/books.jpg'
     },
   ];
+  total = 0;
 
+  onAddToShoppingCart(product: Product) {
+    this.myShoppingCart.push(product);
+    this.total = this.total + product.price;
+  }
+
+  formatTotal(total: number) {
+    //Format number to DLS currency
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+       }).format(total);
+    }
 }
