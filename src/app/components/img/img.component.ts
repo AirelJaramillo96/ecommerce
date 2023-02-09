@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, OnDestroy, SimpleChanges} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-img',
@@ -10,8 +10,6 @@ export class ImgComponent implements OnInit {
   img: string = '';
   @Input('img') set changeImg(newImg: string) {
     this.img = newImg;
-    // this.img = this.imgDefault;
-    console.log('set changeImg =>>>', 'imgValue =>', this.img);
   };
   @Output() loaded = new EventEmitter<string>();
   imgDefault: string = './assets/images/descarga.png';
