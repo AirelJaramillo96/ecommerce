@@ -2,8 +2,8 @@
   La cantidad de productos es: {{ myShoppingCart.length}} <br>
   El total es: {{formatTotal(total)}} <br>
   Today is {{today | date:'short' }} <br>
-  Other date {{today | date:'yyyy/dd/MM' }} <br>
-  {{ 'HolA a TodOS' | uppercase }}
+  Other date {{today | timeAgo  }} <br>
+  {{ 'HolA a TodOS' | uppercase | reverse}}
 </p>
 
 <div class="products--grid">
