@@ -10,9 +10,11 @@ export class ProductComponent implements OnInit {
 
   @Input() product: Product = {
     id: '',
-    name: '',
+    title: '',
     price: 0,
-    img: ''
+    image: '',
+    description: '',
+    category: ''
   };
 
   constructor() { }
@@ -25,7 +27,5 @@ export class ProductComponent implements OnInit {
   onAddToCart() {
     this.addedProduct.emit(this.product);
   }
-
-
 
 }
