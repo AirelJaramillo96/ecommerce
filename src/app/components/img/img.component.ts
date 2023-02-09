@@ -7,12 +7,13 @@ import {Component, OnInit, Input, Output, EventEmitter, SimpleChanges} from '@an
 })
 export class ImgComponent implements OnInit {
 
-  img: string = '';
+  img = '';
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Input('img') set changeImg(newImg: string) {
     this.img = newImg;
-  };
+  }
   @Output() loaded = new EventEmitter<string>();
-  imgDefault: string = './assets/images/descarga.png';
+  imgDefault = './assets/images/descarga.png';
   //counter = 0;
   counterFn: number | undefined;
 
