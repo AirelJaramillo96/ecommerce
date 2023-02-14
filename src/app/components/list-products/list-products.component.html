@@ -2,7 +2,7 @@
   La cantidad de productos es: {{ myShoppingCart.length}} <br>
   El total es: {{formatTotal(total)}} <br>
 </p>
-<button (click)="toggleProductDetail()">Generico</button>
+<button (click)="createNewProduct()">create</button>
 <div class="products--grid">
   <app-product [product]="product" *ngFor="let product of products"
       (addedProduct)="onAddToShoppingCart($event)"

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Product} from "../../models/product.model";
+import {CreateProductDTO, Product} from "../../models/product.model";
 import { StoreService } from "../../services/store.service";
 import { ProductsService } from "../../services/products/products.service";
 
@@ -57,5 +57,18 @@ export class ListProductsComponent {
       this.toggleProductDetail();
       this.productChosen = product;
     })
+  }
+
+  createNewProduct() {
+    const newProduct: CreateProductDTO = {
+      title: 'New Product',
+      price: 100,
+      images: ['https://placeimg.com/640/480/any?random=${Math.random()}'],
+      description: 'New Product Description',
+      categoryId: 2,
+    }
+    this.productsService.createProduct(newProduct).subscribe(product => {
+      this.products.unshift(product);
+    });
   }
 }
