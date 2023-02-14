@@ -12,6 +12,7 @@ export class ListProductsComponent {
 
   myShoppingCart: Product[] = [];
   products: Product[] = [];
+  showProductDetail: boolean = false;
   total = 0;
   today = new Date();
   date = new Date(2023, 1, 1);
@@ -38,6 +39,13 @@ export class ListProductsComponent {
     return this.storeService.getFormatTotal(total);
   }
 
+  toggleProductDetail() {
+    this.showProductDetail = !this.showProductDetail;
+  }
 
-
+  onShowDetail(id: string) {
+    this.productsService.getProduct(id).subscribe(product => {
+      this.toggleProductDetail();
+    })
+  }
 }

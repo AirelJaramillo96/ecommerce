@@ -23,9 +23,14 @@ export class ProductComponent implements OnInit {
   }
 
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showDetail = new EventEmitter<string>();
 
   onAddToCart() {
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail() {
+    this.showDetail.emit(this.product.id);
   }
 
 }
