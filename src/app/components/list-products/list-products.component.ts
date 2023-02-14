@@ -71,4 +71,19 @@ export class ListProductsComponent {
       this.products.unshift(product);
     });
   }
+
+  updateProduct() {
+    const updateProduct: CreateProductDTO = {
+      title: 'Updated Product xx',
+      price: 100,
+      images: ['https://placeimg.com/640/480/any?random=${Math.random()}'],
+      description: 'Updated Product Description',
+      categoryId: 2,
+    }
+    this.productsService.updateProduct(this.productChosen.id, updateProduct).subscribe(product => {
+      const index = this.products.findIndex(p => p.id === product.id);
+      this.products[index] = product;
+      this.productChosen = product;
+    });
+  }
 }
