@@ -86,4 +86,12 @@ export class ListProductsComponent {
       this.productChosen = product;
     });
   }
+
+  deleteProduct() {
+    this.productsService.deleteProduct(this.productChosen.id).subscribe(() => {
+      const index = this.products.findIndex(p => p.id === this.productChosen.id);
+      this.products.splice(index, 1);
+      this.toggleProductDetail();
+    });
+  }
 }
