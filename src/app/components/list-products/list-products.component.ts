@@ -13,6 +13,8 @@ export class ListProductsComponent {
   myShoppingCart: Product[] = [];
   products: Product[] = [];
   showProductDetail: boolean = false;
+  limit: number = 10;
+  offset: number = 0;
   productChosen: Product = {
     id: '',
     title: '',
@@ -34,9 +36,7 @@ export class ListProductsComponent {
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts().subscribe(products => {
-      this.products = products;
-    })
+    this.loadMore()
   }
 
   onAddToShoppingCart(product: Product) {
@@ -93,5 +93,12 @@ export class ListProductsComponent {
       this.products.splice(index, 1);
       this.toggleProductDetail();
     });
+  }
+
+  loadMore() {
+    this.productsService.getProductByPage(this.limit, this.offset).subscribe(products => {
+      this.products = this.products.concat(products);
+      this.offset += this.limit;
+    })
   }
 }
