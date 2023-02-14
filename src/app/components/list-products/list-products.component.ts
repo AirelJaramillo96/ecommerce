@@ -13,6 +13,15 @@ export class ListProductsComponent {
   myShoppingCart: Product[] = [];
   products: Product[] = [];
   showProductDetail: boolean = false;
+  productChosen: Product = {
+    id: '',
+    title: '',
+    price: 0,
+    images: [],
+    description: '',
+    category: {id: '', name: ''}
+  }
+
   total = 0;
   today = new Date();
   date = new Date(2023, 1, 1);
@@ -46,6 +55,7 @@ export class ListProductsComponent {
   onShowDetail(id: string) {
     this.productsService.getProduct(id).subscribe(product => {
       this.toggleProductDetail();
+      this.productChosen = product;
     })
   }
 }
