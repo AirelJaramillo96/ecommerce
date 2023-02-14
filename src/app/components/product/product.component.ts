@@ -12,9 +12,9 @@ export class ProductComponent implements OnInit {
     id: '',
     title: '',
     price: 0,
-    image: '',
+    images: [],
     description: '',
-    category: ''
+    category: {id: '', name: ''}
   };
 
   constructor() { }
