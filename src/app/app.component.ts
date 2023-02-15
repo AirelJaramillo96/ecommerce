@@ -48,13 +48,13 @@ export class AppComponent {
   login() {
     this.authService.login('johnmarston@gmail.com', '123456')
       .subscribe(rta => {
-      this.token = rta.access_token;
+
       this.getProfile();
     });
   }
 
   getProfile() {
-    this.authService.profile(this.token).subscribe(rta => {
+    this.authService.profile().subscribe(rta => {
        this.user = rta;
     })
   }
