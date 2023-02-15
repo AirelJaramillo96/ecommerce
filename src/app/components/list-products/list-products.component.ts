@@ -3,6 +3,10 @@ import {CreateProductDTO, Product} from "../../models/product.model";
 import { StoreService } from "../../services/store.service";
 import { ProductsService } from "../../services/products/products.service";
 import Swal from "sweetalert2";
+
+import { switchMap } from "rxjs/operators";
+import { zip } from "rxjs";
+
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -68,6 +72,27 @@ export class ListProductsComponent {
       })
     })
   }
+
+  readAndUpdate(id: string) {
+    //this run serial
+    this.productsService.getProduct(id)
+      .pipe(
+        switchMap((product) => this.productsService.updateProduct(product.id, {title: 'change'}))
+      )
+      .subscribe(data => {
+        console.log(data);
+    })
+
+    this.productsService.fetchReadAndUpdate(id, {title: 'change'}).subscribe( response => {
+      const read = response[0];
+      const update = response[1];
+
+      console.log(read, update);
+    })
+
+  }
+
+
 
   createNewProduct() {
     const newProduct: CreateProductDTO = {
