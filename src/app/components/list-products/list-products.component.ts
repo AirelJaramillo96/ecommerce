@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {CreateProductDTO, Product} from "../../models/product.model";
 import { StoreService } from "../../services/store.service";
 import { ProductsService } from "../../services/products/products.service";
-
+import Swal from "sweetalert2";
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -15,6 +15,7 @@ export class ListProductsComponent {
   showProductDetail: boolean = false;
   limit: number = 10;
   offset: number = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
   productChosen: Product = {
     id: '',
     title: '',
@@ -53,9 +54,18 @@ export class ListProductsComponent {
   }
 
   onShowDetail(id: string) {
+    this.statusDetail = 'loading';
     this.productsService.getProduct(id).subscribe(product => {
       this.toggleProductDetail();
       this.productChosen = product;
+      this.statusDetail = 'success';
+    }, response => {
+      this.statusDetail = 'error';
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
     })
   }
 

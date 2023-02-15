@@ -3,6 +3,7 @@
   El total es: {{formatTotal(total)}} <br>
 </p>
 <button (click)="createNewProduct()">create</button>
+<button (click)="onShowDetail('3333112')">detalle not found</button>
 <div class="products--grid">
   <app-product [product]="product" *ngFor="let product of products"
       (addedProduct)="onAddToShoppingCart($event)"

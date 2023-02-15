@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {CreateProductDTO, Product, UpdateProductDTO} from "../../models/product.model";
 import {retry} from "rxjs";
+import { catchError } from "rxjs";
+import { throwError} from "rxjs";
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -27,7 +29,18 @@ export class ProductsService {
   }
 
   getProduct(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(catchError((error: HttpErrorResponse) => {
+      if (error.status === HttpStatusCode.InternalServerError)
+        return throwError(() => new Error('Something went wrong!'));
+      if (error.status === HttpStatusCode.Unauthorized)
+        return throwError(() => new Error('You are not authorized!'));
+      if (error.status === 500)
+        return throwError(() => new Error('Something went wrong!'));
+      if (error.status === 404) {
+        return throwError(() => new Error('Product not found! xxxxx'));
+      }
+      return throwError(() => new Error('Something went wrong!'));
+    }));
   }
 
   getProductByPage(limit: number, offset: number) {
