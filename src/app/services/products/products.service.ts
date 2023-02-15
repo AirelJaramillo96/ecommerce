@@ -3,7 +3,7 @@ import {HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode} from '@angula
 import {CreateProductDTO, Product, UpdateProductDTO} from "../../models/product.model";
 import {retry} from "rxjs";
 import { catchError } from "rxjs";
-import { throwError} from "rxjs";
+import { throwError, map } from "rxjs";
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -46,7 +46,14 @@ export class ProductsService {
   getProductByPage(limit: number, offset: number) {
     return this.http.get<Product[]>(`${this.apiUrl}`, {
       params: { limit, offset }
-    }).pipe(retry(3));
+    }).pipe(retry(3),
+      map(products => products.map(product => {
+        return {
+          ...product,
+          taxes: product.price * .16
+        }
+      }))
+    );
   }
 
   createProduct(dto: CreateProductDTO) {
