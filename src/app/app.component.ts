@@ -12,7 +12,14 @@ import {CreateUserDTO, User} from "./models/user.module";
 export class AppComponent {
   imgParent = '';
   showImg = true;
+  token = '';
 
+  user: User = {
+    id: '',
+    name: '',
+    email: '',
+    password: ''
+  }
   constructor(
     private authService: AuthService,
     private userService: UserService
@@ -39,8 +46,16 @@ export class AppComponent {
   }
 
   login() {
-    this.authService.login('johnmarston@gmail.com', '123456').subscribe(rta => {
-      console.log('rta login', rta.access_token);
+    this.authService.login('johnmarston@gmail.com', '123456')
+      .subscribe(rta => {
+      this.token = rta.access_token;
+      this.getProfile();
     });
+  }
+
+  getProfile() {
+    this.authService.profile(this.token).subscribe(rta => {
+       this.user = rta;
+    })
   }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { StoreService } from '../../services/store.service';
+import {User} from "../../models/user.module";
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,6 +9,12 @@ import { StoreService } from '../../services/store.service';
 })
 export class NavBarComponent {
 
+  @Input() user: User = {
+    id: '',
+    name: '',
+    email: '',
+    password: ''
+  }
   activeMenu = false;
   counter = 0;
 

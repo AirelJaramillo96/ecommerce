@@ -1,9 +1,10 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [user]="user"></app-nav-bar>
 
 <button (click)="createUser()">Crear Usuario</button>
 <button (click)="login()">Login</button>
+<button (click)="getProfile()">Profile</button>
 
-<app-list-products></app-list-products>
+<app-list-products ></app-list-products>
 
 <!--
 <p>
