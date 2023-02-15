@@ -5,6 +5,7 @@ import {retry, zip} from "rxjs";
 import { catchError } from "rxjs";
 import { throwError, map } from "rxjs";
 import { environment } from 'src/environments/environment';
+import { checkTime } from "../../interceptors/time.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,8 @@ export class ProductsService {
 
   getProductByPage(limit: number, offset: number) {
     return this.http.get<Product[]>(`${this.apiUrl}`, {
-      params: { limit, offset }
+      params: { limit, offset },
+        context: checkTime()
     }).pipe(retry(3),
       map(products => products.map(product => {
         return {

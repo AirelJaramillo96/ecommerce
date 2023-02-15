@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { AuthService } from "./services/users/auth.service";
 import { UserService } from "./services/users/user.service";
+import { FilesService } from "./services/files/files.service";
 import {CreateUserDTO, User} from "./models/user.module";
 
 @Component({
@@ -22,7 +23,8 @@ export class AppComponent {
   }
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private filesService: FilesService
   ) {
   }
 
@@ -58,4 +60,10 @@ export class AppComponent {
        this.user = rta;
     })
   }
+
+    downloadPDF() {
+        this.filesService.getFile('dummy.pdf', 'application/pdf').subscribe(rta => {
+            console.log('file downloaded', rta);
+        })
+    }
 }
